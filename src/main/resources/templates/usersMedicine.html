@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>User - Medicines</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+	<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="/">Pharmacy</a>
+		<div class="collapse navbar-collapse">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<a class="nav-link" th:href="@{/user/dashboard}">Home</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" th:href="@{/user/orders}">Orders</a>
+				</li>
+				<li class="nav-item" th:if="${#httpServletRequest.remoteUser}">
+					<a class="nav-link" th:href="@{/logout}">Logout</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
+		<h2>Medicines</h2>
+		<form th:action="@{/user/order}" method="post">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+						<th>Price</th>
+						<th>Select</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="medicine : ${medicines}">
+						<td th:text="${medicine.name}">Name</td>
+						<td th:text="${medicine.description}">Description</td>
+						<td th:text="${medicine.price}">Price</td>
+						<td>
+							<input type="checkbox" th:field="*{medicineIds}" th:value="${medicine.id}" />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<button type="submit" class="btn btn-primary">Place Order</button>
+		</form>
+	</div>
+</body>
+
+</html>

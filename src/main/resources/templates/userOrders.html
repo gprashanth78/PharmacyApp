@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>User - Orders</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="/">Pharmacy</a>
+		<div class="collapse navbar-collapse">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<a class="nav-link" th:href="@{/user/dashboard}">Home</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" th:href="@{/user/medicines}">Medicine</a>
+				</li>
+				<li class="nav-item" th:if="${#httpServletRequest.remoteUser}">
+					<a class="nav-link" th:href="@{/logout}">Logout</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
+		<h2>Orders</h2>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Order ID</th>
+					<th>Medicines</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="order : ${orders}">
+					<td th:text="${order.id}">Order ID</td>
+					<td>
+						<span th:each="medicine : ${order.medicines}" th:text="${medicine.name}"></span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+
+</html>
